@@ -2,10 +2,7 @@ import { defineConfig } from "nitro"
 
 export default defineConfig({
     serverDir: "./server",
-    routes: {
-        "/auth/**": "./server/api/**"
-    },
-    
+    serverEntry: false,
     devProxy: {
         "/auth/**": {
             target: `http://${process.env.HOST_ADDRESS || "localhost"}:${process.env.SERVICE_PORT || 4000}`,
