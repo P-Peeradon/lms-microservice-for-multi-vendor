@@ -1,19 +1,26 @@
-function generateJWEToken(payload: object, secret: string, options?: object): string {
+import { connectRedis } from '../redis';
+import * as jose from 'jose';
+import type { JWEPayload } from './interface';
+
+const JWE_SECRET: string = process.env.JWE_SECRET ?? 'default-secret-key';
+
+async function generateJWEToken(payload: JWEPayload, secret: string): Promise<string> {
     // Implement your JWE token generation logic here
-    // For example, you can use a library like jose or any other JWE implementation
-    return ''; // Placeholder, replace with actual token generation
+    const jwe = await new jose.CompactEncrypt(new TextEncoder().encode(JSON.stringify(payload)))
+        .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+        .encrypt(new TextEncoder().encode(secret));
+
+    return jwe; 
 }
 
-function verifyJWEToken(token: string, secret: string): object | null {
+async function verifyJWEToken(token: string, secret: string): Promise<JWEPayload | null> {
     // Implement your JWE token verification logic here
-    // For example, you can use a library like jose or any other JWE implementation
-    return null; // Placeholder, replace with actual token verification
-}
-
-function decodeJWEToken(token: string): object | null {
-    // Implement your JWE token decoding logic here
-    // For example, you can use a library like jose or any other JWE implementation
-    return null; // Placeholder, replace with actual token decoding
+    try {
+        const { plaintext } = await jose.compactDecrypt(token, new TextEncoder().encode(secret));
+        return JSON.parse(new TextDecoder().decode(plaintext));
+    } catch {
+        return null;
+    }
 }
 
 function revokeJWEToken(token: string): boolean {
@@ -22,9 +29,10 @@ function revokeJWEToken(token: string): boolean {
     return false; // Placeholder, replace with actual token revocation logic
 }
 
-export default {
+const jweTokenHelper = {
     generateJWEToken,
     verifyJWEToken,
-    decodeJWEToken,
     revokeJWEToken
 };
+
+export default jweTokenHelper;

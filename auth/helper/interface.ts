@@ -1,6 +1,6 @@
 export enum University {
-    UniMelb = "University of Melbourne",
-    USyd = "University of Sydney",
+    unimelb = "University of Melbourne",
+    usyd = "University of Sydney",
 }
 
 export enum Role {
@@ -23,8 +23,16 @@ export interface PII {
 
 export interface JWEPayload {
     shadowID: string;
-    exp: number;
-    iat: number;
     issuedBy: University;
     role: Role[];
+}
+
+export interface SessionObject {
+  sessionId: string;
+  token: string;
+  shadowId: string;
+  createdAt: number;
+  expiresAt: number;
+  ipAddress?: string;
+  userAgent?: string;
 }

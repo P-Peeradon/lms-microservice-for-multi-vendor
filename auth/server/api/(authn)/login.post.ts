@@ -1,7 +1,10 @@
 import { defineHandler, HTTPError, readBody, type H3Event } from "h3";
-import passwordHelper from "../../../helper/password";
+import passwordHelper from "#helper/password.ts";
 import jweTokenHelper from "#helper/jweToken.ts";
+import sessionHelper from "#helper/session.ts";
 import { Role, University } from "#helper/interface.ts";
+import { useRuntimeConfig } from "nitro/runtime-config";
+
 
 interface LoginRequestBody {
     username: string;
@@ -11,6 +14,8 @@ interface LoginRequestBody {
 export default defineHandler(async (event: H3Event) => {
     const body: LoginRequestBody | undefined = await readBody<LoginRequestBody>(event);
     const { username, password } = body ?? {};
+
+    const config = useRuntimeConfig();
 
     if (!username || !password) {
         return new HTTPError({
@@ -28,10 +33,12 @@ export default defineHandler(async (event: H3Event) => {
         });
     }
 
-    const token = await jweTokenHelper.generateJWEToken({ shadowID: username, issuedBy: University.unimelb, role: [Role.Student] }, process.env.JWE_SECRET);
+    const token = await jweTokenHelper.generateJWEToken({ shadowID: username, issuedBy: University.unimelb, role: [Role.Student] }, config.jweSecret);
 
     const ipAddress = event.req.headers.get('x-forwarded-for') || '';
     const userAgent = event.req.headers.get('user-agent') || '';
+
+    await sessionHelper.createSession(username, University.unimelb, token, ipAddress, userAgent);
 
     event.res.headers.set("Content-Type", "application/json");
     event.res.headers.set("Access-Control-Allow-Origin", "*");
