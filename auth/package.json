@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
-    "jose": "^6.2.3"
+    "jose": "^6.2.3",
+    "redis": "^6.1.0"
   }
 }
