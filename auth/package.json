@@ -13,5 +13,9 @@
     "@types/node": "latest",
     "nitro": "latest",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "jose": "^6.2.3"
   }
 }
