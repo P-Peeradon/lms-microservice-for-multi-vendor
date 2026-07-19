@@ -10,12 +10,13 @@
     "#*": "./*"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/node": "latest",
     "nitro": "latest",
     "typescript": "latest"
   },
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "jose": "^6.2.3"
   }
 }
