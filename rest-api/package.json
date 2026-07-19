@@ -10,8 +10,15 @@
     "#*": "./*"
   },
   "devDependencies": {
+    "@types/mysql": "^2.15.27",
     "@types/node": "latest",
     "nitro": "latest",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "mysql2": "^3.23.1",
+    "typeorm": "^1.1.0",
+    "zod": "^4.4.3"
   }
 }
