@@ -14,6 +14,16 @@ CREATE TABLE IF NOT EXISTS lms_lumiere_carnet.users (
 );
 */
 
+interface UserRow extends RowDataPacket {
+    shadow_id: string;
+    encrypted_pii: Buffer;
+    university: string;
+    faculty: string;
+    firstname: Buffer;
+    uni_id: Buffer;
+    date_of_birth: Buffer;
+}
+
 class UserRepository {
 
     static async create(userData: any) {
@@ -26,15 +36,15 @@ class UserRepository {
             userData.firstname, userData.uni_id, 
             userData.date_of_birth];
 
-        const result = await pool.execute<RowDataPacket[]>(query, values);
-        return { id: result[0].insertId, ...userData };
+        const [rows, _field] = await pool.execute<UserRow[]>(query, values);
+        return { id: rows[0].shadow_id, ...userData };
     }
 
     static async findAll() {
         const query = `SELECT * FROM users`;
 
         try {
-            const [rows] = await pool.execute<RowDataPacket[]>(query);
+            const [rows] = await pool.execute<UserRow[]>(query);
             return rows;
         } catch (error) {
             console.error("Error fetching users:", error);
