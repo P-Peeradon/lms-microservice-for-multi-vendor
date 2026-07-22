@@ -13,9 +13,9 @@ SERVICE_REGISTRY = {
 
 # Request schema received from NitroTS
 class DynamicEventPayload(BaseModel):
-    service_alias: str    # e.g., "identity"
+    target_service: str    # e.g., "identity"
     grpc_service: str     # Full proto service name, e.g., "identity.Identity"
-    method_name: str      # RPC method name, e.g., "SayHello"
+    event_name: str      # RPC method name, e.g., "SayHello"
     payload: dict         # Method parameters as dictionary, e.g., {"name": "Alice"}
 
 app = FastAPI()
