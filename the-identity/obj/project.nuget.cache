@@ -25,15 +25,5 @@
     "C:\\Users\\Asus\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file D:\\lms-microservice-for-multi-vendor\\the-identity\\obj\\project.nuget.cache : '=' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 3 | BytePositionInLine: 0.",
-      "projectPath": "D:\\lms-microservice-for-multi-vendor\\the-identity\\the-identity.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\lms-microservice-for-multi-vendor\\the-identity\\the-identity.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
