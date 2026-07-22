@@ -3,8 +3,8 @@ import grpc
 from grpc import aio
 from grpc_reflection.v1alpha import reflection
 import uvicorn
-from socket.grpc_socket import DynamicGrpcGateway
-from socket.websocket_socket import app  # Import the FastAPI app from your websocket_socket.py
+from socket_protocol.grpc_socket import DynamicGrpcGateway
+from socket_protocol.websocket_socket import app  # Import the FastAPI app from your websocket_socket.py
 
 # --- 2. THE DUAL-ENGINE COROUTINE SETUP ---
 async def serve():
