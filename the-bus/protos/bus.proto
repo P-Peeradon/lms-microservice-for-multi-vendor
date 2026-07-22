@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package bus;
+
+service BusRouter {
+  rpc RouteEvent (BusRequest) returns (BusResponse);
+}
+
+message BusRequest {
+  string target_service = 1; // e.g., "order_service", "payment_service"
+  string event_name     = 2; // e.g., "CreateOrder", "ProcessPayment"
+  string payload        = 3; // JSON or serialized data
+}
+
+message BusResponse {
+  bool success    = 1;
+  string message  = 2;
+  string metadata = 3;
+}

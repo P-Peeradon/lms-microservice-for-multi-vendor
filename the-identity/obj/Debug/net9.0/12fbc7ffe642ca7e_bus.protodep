@@ -1,0 +1,2 @@
+obj\Debug\net9.0\Protos/Bus.cs \
+obj\Debug\net9.0\Protos/BusGrpc.cs: Protos/bus.proto

@@ -16,6 +16,8 @@
     "typescript": "latest"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.14.4",
+    "@grpc/proto-loader": "^0.8.1",
     "crypto": "^1.0.1",
     "mysql2": "^3.23.1",
     "typeorm": "^1.1.0",
