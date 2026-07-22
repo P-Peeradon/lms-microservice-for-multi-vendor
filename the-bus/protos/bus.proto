@@ -1,18 +1,19 @@
-// bus.proto
 syntax = "proto3";
 
 package bus;
 
-service BusService {
-  rpc DispatchRequest (BusPayload) returns (BusResponse);
+service BusRouter {
+  rpc RouteEvent (BusRequest) returns (BusResponse);
 }
 
-message BusPayload {
-  string action = 1;
-  string payload_json = 2;
+message BusRequest {
+  string target_service = 1; // e.g., "order_service", "payment_service"
+  string event_name     = 2; // e.g., "CreateOrder", "ProcessPayment"
+  string payload        = 3; // JSON or serialized data
 }
 
 message BusResponse {
-  int32 status_code = 1;
-  string result_json = 2;
+  bool success    = 1;
+  string message  = 2;
+  string metadata = 3;
 }

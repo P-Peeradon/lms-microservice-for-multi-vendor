@@ -25,7 +25,7 @@ if _version_not_supported:
     )
 
 
-class BusServiceStub:
+class BusRouterStub:
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -34,43 +34,43 @@ class BusServiceStub:
         Args:
             channel: A grpc.Channel.
         """
-        self.DispatchRequest = channel.unary_unary(
-                '/bus.BusService/DispatchRequest',
-                request_serializer=protos_dot_bus__pb2.BusPayload.SerializeToString,
+        self.RouteEvent = channel.unary_unary(
+                '/bus.BusRouter/RouteEvent',
+                request_serializer=protos_dot_bus__pb2.BusRequest.SerializeToString,
                 response_deserializer=protos_dot_bus__pb2.BusResponse.FromString,
                 _registered_method=True)
 
 
-class BusServiceServicer:
+class BusRouterServicer:
     """Missing associated documentation comment in .proto file."""
 
-    def DispatchRequest(self, request, context):
+    def RouteEvent(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_BusServiceServicer_to_server(servicer, server):
+def add_BusRouterServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'DispatchRequest': grpc.unary_unary_rpc_method_handler(
-                    servicer.DispatchRequest,
-                    request_deserializer=protos_dot_bus__pb2.BusPayload.FromString,
+            'RouteEvent': grpc.unary_unary_rpc_method_handler(
+                    servicer.RouteEvent,
+                    request_deserializer=protos_dot_bus__pb2.BusRequest.FromString,
                     response_serializer=protos_dot_bus__pb2.BusResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'bus.BusService', rpc_method_handlers)
+            'bus.BusRouter', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('bus.BusService', rpc_method_handlers)
+    server.add_registered_method_handlers('bus.BusRouter', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class BusService:
+class BusRouter:
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def DispatchRequest(request,
+    def RouteEvent(request,
             target,
             options=(),
             channel_credentials=None,
@@ -83,8 +83,8 @@ class BusService:
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/bus.BusService/DispatchRequest',
-            protos_dot_bus__pb2.BusPayload.SerializeToString,
+            '/bus.BusRouter/RouteEvent',
+            protos_dot_bus__pb2.BusRequest.SerializeToString,
             protos_dot_bus__pb2.BusResponse.FromString,
             options,
             channel_credentials,

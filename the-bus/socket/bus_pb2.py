@@ -24,17 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10protos/bus.proto\x12\x03\x62us\"2\n\nBusPayload\x12\x0e\n\x06\x61\x63tion\x18\x01 \x01(\t\x12\x14\n\x0cpayload_json\x18\x02 \x01(\t\"7\n\x0b\x42usResponse\x12\x13\n\x0bstatus_code\x18\x01 \x01(\x05\x12\x13\n\x0bresult_json\x18\x02 \x01(\t2B\n\nBusService\x12\x34\n\x0f\x44ispatchRequest\x12\x0f.bus.BusPayload\x1a\x10.bus.BusResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10protos/bus.proto\x12\x03\x62us\"I\n\nBusRequest\x12\x16\n\x0etarget_service\x18\x01 \x01(\t\x12\x12\n\nevent_name\x18\x02 \x01(\t\x12\x0f\n\x07payload\x18\x03 \x01(\t\"A\n\x0b\x42usResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x10\n\x08metadata\x18\x03 \x01(\t2<\n\tBusRouter\x12/\n\nRouteEvent\x12\x0f.bus.BusRequest\x1a\x10.bus.BusResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'protos.bus_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_BUSPAYLOAD']._serialized_start=25
-  _globals['_BUSPAYLOAD']._serialized_end=75
-  _globals['_BUSRESPONSE']._serialized_start=77
-  _globals['_BUSRESPONSE']._serialized_end=132
-  _globals['_BUSSERVICE']._serialized_start=134
-  _globals['_BUSSERVICE']._serialized_end=200
+  _globals['_BUSREQUEST']._serialized_start=25
+  _globals['_BUSREQUEST']._serialized_end=98
+  _globals['_BUSRESPONSE']._serialized_start=100
+  _globals['_BUSRESPONSE']._serialized_end=165
+  _globals['_BUSROUTER']._serialized_start=167
+  _globals['_BUSROUTER']._serialized_end=227
 # @@protoc_insertion_point(module_scope)

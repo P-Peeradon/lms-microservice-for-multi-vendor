@@ -1,7 +1,7 @@
 import asyncio
 
 from fastapi import FastAPI, logger
-from socket import bus_pb2_grpc, BusService
+from socket import bus_pb2_grpc, DynamicBusRouter
 import grpc
 
 app = FastAPI()
@@ -15,7 +15,7 @@ async def websocket_endpoint(websocket, client_id: str):
         
 async def serve():
     server = grpc.aio.server()
-    bus_pb2_grpc.add_BusServiceServicer_to_server(BusService(), server)
+    bus_pb2_grpc.add_BusServiceServicer_to_server(DynamicBusRouter(), server)
     
     # Listen on port 50051 (matches Nitro TS client config)
     listen_addr = "[::]:50051"
