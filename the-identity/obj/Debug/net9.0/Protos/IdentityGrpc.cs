@@ -8,12 +8,9 @@
 using grpc = global::Grpc.Core;
 
 namespace the_identity {
-  /// <summary>
-  /// The greeting service definition.
-  /// </summary>
-  public static partial class Identity
+  public static partial class IdentityService
   {
-    static readonly string __ServiceName = "identity.Identity";
+    static readonly string __ServiceName = "Identity.IdentityService";
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
@@ -49,17 +46,77 @@ namespace the_identity {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.HelloRequest> __Marshaller_identity_HelloRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.HelloRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.SubmitPIIRequest> __Marshaller_Identity_SubmitPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SubmitPIIRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.HelloReply> __Marshaller_identity_HelloReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.HelloReply.Parser));
+    static readonly grpc::Marshaller<global::the_identity.SubmitPIIResponse> __Marshaller_Identity_SubmitPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SubmitPIIResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.ApprovePIIRequest> __Marshaller_Identity_ApprovePIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.ApprovePIIRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.ApprovePIIResponse> __Marshaller_Identity_ApprovePIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.ApprovePIIResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.EncryptPIIRequest> __Marshaller_Identity_EncryptPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.EncryptPIIRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.EncryptPIIResponse> __Marshaller_Identity_EncryptPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.EncryptPIIResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.GenerateShadowIDRequest> __Marshaller_Identity_GenerateShadowIDRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.GenerateShadowIDRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.GenerateShadowIDResponse> __Marshaller_Identity_GenerateShadowIDResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.GenerateShadowIDResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.SearchIdentityRequest> __Marshaller_Identity_SearchIdentityRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SearchIdentityRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.SearchIdentityResponse> __Marshaller_Identity_SearchIdentityResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SearchIdentityResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.DecryptPIIRequest> __Marshaller_Identity_DecryptPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.DecryptPIIRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::the_identity.DecryptPIIResponse> __Marshaller_Identity_DecryptPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.DecryptPIIResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::the_identity.HelloRequest, global::the_identity.HelloReply> __Method_SayHello = new grpc::Method<global::the_identity.HelloRequest, global::the_identity.HelloReply>(
+    static readonly grpc::Method<global::the_identity.SubmitPIIRequest, global::the_identity.SubmitPIIResponse> __Method_SubmitPII = new grpc::Method<global::the_identity.SubmitPIIRequest, global::the_identity.SubmitPIIResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "SayHello",
-        __Marshaller_identity_HelloRequest,
-        __Marshaller_identity_HelloReply);
+        "SubmitPII",
+        __Marshaller_Identity_SubmitPIIRequest,
+        __Marshaller_Identity_SubmitPIIResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::the_identity.ApprovePIIRequest, global::the_identity.ApprovePIIResponse> __Method_ApprovePII = new grpc::Method<global::the_identity.ApprovePIIRequest, global::the_identity.ApprovePIIResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ApprovePII",
+        __Marshaller_Identity_ApprovePIIRequest,
+        __Marshaller_Identity_ApprovePIIResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::the_identity.EncryptPIIRequest, global::the_identity.EncryptPIIResponse> __Method_EncryptPII = new grpc::Method<global::the_identity.EncryptPIIRequest, global::the_identity.EncryptPIIResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "EncryptPII",
+        __Marshaller_Identity_EncryptPIIRequest,
+        __Marshaller_Identity_EncryptPIIResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::the_identity.GenerateShadowIDRequest, global::the_identity.GenerateShadowIDResponse> __Method_GenerateShadowID = new grpc::Method<global::the_identity.GenerateShadowIDRequest, global::the_identity.GenerateShadowIDResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GenerateShadowID",
+        __Marshaller_Identity_GenerateShadowIDRequest,
+        __Marshaller_Identity_GenerateShadowIDResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::the_identity.SearchIdentityRequest, global::the_identity.SearchIdentityResponse> __Method_SearchIdentity = new grpc::Method<global::the_identity.SearchIdentityRequest, global::the_identity.SearchIdentityResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "SearchIdentity",
+        __Marshaller_Identity_SearchIdentityRequest,
+        __Marshaller_Identity_SearchIdentityResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::the_identity.DecryptPIIRequest, global::the_identity.DecryptPIIResponse> __Method_DecryptPII = new grpc::Method<global::the_identity.DecryptPIIRequest, global::the_identity.DecryptPIIResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "DecryptPII",
+        __Marshaller_Identity_DecryptPIIRequest,
+        __Marshaller_Identity_DecryptPIIResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -67,18 +124,78 @@ namespace the_identity {
       get { return global::the_identity.IdentityReflection.Descriptor.Services[0]; }
     }
 
-    /// <summary>Base class for server-side implementations of Identity</summary>
-    [grpc::BindServiceMethod(typeof(Identity), "BindService")]
-    public abstract partial class IdentityBase
+    /// <summary>Base class for server-side implementations of IdentityService</summary>
+    [grpc::BindServiceMethod(typeof(IdentityService), "BindService")]
+    public abstract partial class IdentityServiceBase
     {
       /// <summary>
-      /// Sends a greeting
+      /// 1. Submit raw PII JSON for an identity.
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::the_identity.HelloReply> SayHello(global::the_identity.HelloRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::the_identity.SubmitPIIResponse> SubmitPII(global::the_identity.SubmitPIIRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// 2. Approve previously submitted PII.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::the_identity.ApprovePIIResponse> ApprovePII(global::the_identity.ApprovePIIRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// 3. Encrypt approved PII with AES-192 and store as base64 blob.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::the_identity.EncryptPIIResponse> EncryptPII(global::the_identity.EncryptPIIRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// 4. Generate NRIC-like ShadowID with checksum.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::the_identity.GenerateShadowIDResponse> GenerateShadowID(global::the_identity.GenerateShadowIDRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// 5. Search identities using hashed keys.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::the_identity.SearchIdentityResponse> SearchIdentity(global::the_identity.SearchIdentityRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// 6. Decrypt PII for admin-only access (audit-logged).
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::the_identity.DecryptPIIResponse> DecryptPII(global::the_identity.DecryptPIIRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -88,10 +205,15 @@ namespace the_identity {
     /// <summary>Creates service definition that can be registered with a server</summary>
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public static grpc::ServerServiceDefinition BindService(IdentityBase serviceImpl)
+    public static grpc::ServerServiceDefinition BindService(IdentityServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_SayHello, serviceImpl.SayHello).Build();
+          .AddMethod(__Method_SubmitPII, serviceImpl.SubmitPII)
+          .AddMethod(__Method_ApprovePII, serviceImpl.ApprovePII)
+          .AddMethod(__Method_EncryptPII, serviceImpl.EncryptPII)
+          .AddMethod(__Method_GenerateShadowID, serviceImpl.GenerateShadowID)
+          .AddMethod(__Method_SearchIdentity, serviceImpl.SearchIdentity)
+          .AddMethod(__Method_DecryptPII, serviceImpl.DecryptPII).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -99,9 +221,14 @@ namespace the_identity {
     /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public static void BindService(grpc::ServiceBinderBase serviceBinder, IdentityBase serviceImpl)
+    public static void BindService(grpc::ServiceBinderBase serviceBinder, IdentityServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_SayHello, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.HelloRequest, global::the_identity.HelloReply>(serviceImpl.SayHello));
+      serviceBinder.AddMethod(__Method_SubmitPII, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.SubmitPIIRequest, global::the_identity.SubmitPIIResponse>(serviceImpl.SubmitPII));
+      serviceBinder.AddMethod(__Method_ApprovePII, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.ApprovePIIRequest, global::the_identity.ApprovePIIResponse>(serviceImpl.ApprovePII));
+      serviceBinder.AddMethod(__Method_EncryptPII, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.EncryptPIIRequest, global::the_identity.EncryptPIIResponse>(serviceImpl.EncryptPII));
+      serviceBinder.AddMethod(__Method_GenerateShadowID, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.GenerateShadowIDRequest, global::the_identity.GenerateShadowIDResponse>(serviceImpl.GenerateShadowID));
+      serviceBinder.AddMethod(__Method_SearchIdentity, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.SearchIdentityRequest, global::the_identity.SearchIdentityResponse>(serviceImpl.SearchIdentity));
+      serviceBinder.AddMethod(__Method_DecryptPII, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::the_identity.DecryptPIIRequest, global::the_identity.DecryptPIIResponse>(serviceImpl.DecryptPII));
     }
 
   }
