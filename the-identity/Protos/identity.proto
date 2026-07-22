@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option csharp_namespace = "the_identity";
 
-package identity;
+package Identity;
 
 service IdentityService {
   // 1. Submit raw PII JSON for an identity.

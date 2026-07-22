@@ -10,7 +10,7 @@ using grpc = global::Grpc.Core;
 namespace the_identity {
   public static partial class IdentityService
   {
-    static readonly string __ServiceName = "identity.IdentityService";
+    static readonly string __ServiceName = "Identity.IdentityService";
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
@@ -46,77 +46,77 @@ namespace the_identity {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.SubmitPIIRequest> __Marshaller_identity_SubmitPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SubmitPIIRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.SubmitPIIRequest> __Marshaller_Identity_SubmitPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SubmitPIIRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.SubmitPIIResponse> __Marshaller_identity_SubmitPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SubmitPIIResponse.Parser));
+    static readonly grpc::Marshaller<global::the_identity.SubmitPIIResponse> __Marshaller_Identity_SubmitPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SubmitPIIResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.ApprovePIIRequest> __Marshaller_identity_ApprovePIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.ApprovePIIRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.ApprovePIIRequest> __Marshaller_Identity_ApprovePIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.ApprovePIIRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.ApprovePIIResponse> __Marshaller_identity_ApprovePIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.ApprovePIIResponse.Parser));
+    static readonly grpc::Marshaller<global::the_identity.ApprovePIIResponse> __Marshaller_Identity_ApprovePIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.ApprovePIIResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.EncryptPIIRequest> __Marshaller_identity_EncryptPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.EncryptPIIRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.EncryptPIIRequest> __Marshaller_Identity_EncryptPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.EncryptPIIRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.EncryptPIIResponse> __Marshaller_identity_EncryptPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.EncryptPIIResponse.Parser));
+    static readonly grpc::Marshaller<global::the_identity.EncryptPIIResponse> __Marshaller_Identity_EncryptPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.EncryptPIIResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.GenerateShadowIDRequest> __Marshaller_identity_GenerateShadowIDRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.GenerateShadowIDRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.GenerateShadowIDRequest> __Marshaller_Identity_GenerateShadowIDRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.GenerateShadowIDRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.GenerateShadowIDResponse> __Marshaller_identity_GenerateShadowIDResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.GenerateShadowIDResponse.Parser));
+    static readonly grpc::Marshaller<global::the_identity.GenerateShadowIDResponse> __Marshaller_Identity_GenerateShadowIDResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.GenerateShadowIDResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.SearchIdentityRequest> __Marshaller_identity_SearchIdentityRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SearchIdentityRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.SearchIdentityRequest> __Marshaller_Identity_SearchIdentityRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SearchIdentityRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.SearchIdentityResponse> __Marshaller_identity_SearchIdentityResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SearchIdentityResponse.Parser));
+    static readonly grpc::Marshaller<global::the_identity.SearchIdentityResponse> __Marshaller_Identity_SearchIdentityResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.SearchIdentityResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.DecryptPIIRequest> __Marshaller_identity_DecryptPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.DecryptPIIRequest.Parser));
+    static readonly grpc::Marshaller<global::the_identity.DecryptPIIRequest> __Marshaller_Identity_DecryptPIIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.DecryptPIIRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::the_identity.DecryptPIIResponse> __Marshaller_identity_DecryptPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.DecryptPIIResponse.Parser));
+    static readonly grpc::Marshaller<global::the_identity.DecryptPIIResponse> __Marshaller_Identity_DecryptPIIResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::the_identity.DecryptPIIResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::the_identity.SubmitPIIRequest, global::the_identity.SubmitPIIResponse> __Method_SubmitPII = new grpc::Method<global::the_identity.SubmitPIIRequest, global::the_identity.SubmitPIIResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "SubmitPII",
-        __Marshaller_identity_SubmitPIIRequest,
-        __Marshaller_identity_SubmitPIIResponse);
+        __Marshaller_Identity_SubmitPIIRequest,
+        __Marshaller_Identity_SubmitPIIResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::the_identity.ApprovePIIRequest, global::the_identity.ApprovePIIResponse> __Method_ApprovePII = new grpc::Method<global::the_identity.ApprovePIIRequest, global::the_identity.ApprovePIIResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "ApprovePII",
-        __Marshaller_identity_ApprovePIIRequest,
-        __Marshaller_identity_ApprovePIIResponse);
+        __Marshaller_Identity_ApprovePIIRequest,
+        __Marshaller_Identity_ApprovePIIResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::the_identity.EncryptPIIRequest, global::the_identity.EncryptPIIResponse> __Method_EncryptPII = new grpc::Method<global::the_identity.EncryptPIIRequest, global::the_identity.EncryptPIIResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "EncryptPII",
-        __Marshaller_identity_EncryptPIIRequest,
-        __Marshaller_identity_EncryptPIIResponse);
+        __Marshaller_Identity_EncryptPIIRequest,
+        __Marshaller_Identity_EncryptPIIResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::the_identity.GenerateShadowIDRequest, global::the_identity.GenerateShadowIDResponse> __Method_GenerateShadowID = new grpc::Method<global::the_identity.GenerateShadowIDRequest, global::the_identity.GenerateShadowIDResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GenerateShadowID",
-        __Marshaller_identity_GenerateShadowIDRequest,
-        __Marshaller_identity_GenerateShadowIDResponse);
+        __Marshaller_Identity_GenerateShadowIDRequest,
+        __Marshaller_Identity_GenerateShadowIDResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::the_identity.SearchIdentityRequest, global::the_identity.SearchIdentityResponse> __Method_SearchIdentity = new grpc::Method<global::the_identity.SearchIdentityRequest, global::the_identity.SearchIdentityResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "SearchIdentity",
-        __Marshaller_identity_SearchIdentityRequest,
-        __Marshaller_identity_SearchIdentityResponse);
+        __Marshaller_Identity_SearchIdentityRequest,
+        __Marshaller_Identity_SearchIdentityResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::the_identity.DecryptPIIRequest, global::the_identity.DecryptPIIResponse> __Method_DecryptPII = new grpc::Method<global::the_identity.DecryptPIIRequest, global::the_identity.DecryptPIIResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "DecryptPII",
-        __Marshaller_identity_DecryptPIIRequest,
-        __Marshaller_identity_DecryptPIIResponse);
+        __Marshaller_Identity_DecryptPIIRequest,
+        __Marshaller_Identity_DecryptPIIResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor

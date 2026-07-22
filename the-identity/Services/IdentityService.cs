@@ -1,9 +1,10 @@
 using Grpc.Core;
 using the_identity;
+using Microsoft.Extensions.Logging;
 
 namespace the_identity.Services;
 
-public class IdentityService : Identity.IdentityBase
+public class IdentityService : global::the_identity.IdentityService.IdentityServiceBase
 {
 
     private readonly ILogger<IdentityService> _logger;
@@ -13,14 +14,5 @@ public class IdentityService : Identity.IdentityBase
         _logger = logger;
     }
 
-    public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
-    {
-
-        _logger.LogInformation("[C# Identity] Dynamic call invoked for: {Name}", request.Name);
-
-        return Task.FromResult(new HelloReply
-        {
-            Message = $"Hello {request.Name}, greetings dynamically from C# Identity microservice!"
-        });
-    }
+    
 }
