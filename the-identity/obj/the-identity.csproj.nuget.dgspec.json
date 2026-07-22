@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\lms-microservice-for-multi-vendor\\the-identity\\Identity.csproj": {}
+    "D:\\lms-microservice-for-multi-vendor\\the-identity\\the-identity.csproj": {}
   },
   "projects": {
-    "D:\\lms-microservice-for-multi-vendor\\the-identity\\Identity.csproj": {
+    "D:\\lms-microservice-for-multi-vendor\\the-identity\\the-identity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\lms-microservice-for-multi-vendor\\the-identity\\Identity.csproj",
-        "projectName": "Identity",
-        "projectPath": "D:\\lms-microservice-for-multi-vendor\\the-identity\\Identity.csproj",
+        "projectUniqueName": "D:\\lms-microservice-for-multi-vendor\\the-identity\\the-identity.csproj",
+        "projectName": "the-identity",
+        "projectPath": "D:\\lms-microservice-for-multi-vendor\\the-identity\\the-identity.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
         "outputPath": "D:\\lms-microservice-for-multi-vendor\\the-identity\\obj\\",
         "projectStyle": "PackageReference",
@@ -52,11 +52,7 @@
           "dependencies": {
             "Grpc.AspNetCore": {
               "target": "Package",
-              "version": "[2.80.0, )"
-            },
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[9.0.11, )"
+              "version": "[2.64.0, )"
             }
           },
           "imports": [
