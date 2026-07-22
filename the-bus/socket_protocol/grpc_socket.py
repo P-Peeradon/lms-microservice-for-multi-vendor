@@ -12,8 +12,8 @@ from grpc_tools import protoc
 # 1. Ask the internal compiler to load the file into the global memory pool
 protoc.main(('', '--proto_path=.', '--descriptor_set_out=', '../protos/bus.proto'))
 # 2. Extract the message class builders out of the memory pool instantly
-BusRequestMessage = GetMessageClass(DescriptorPool.Default().FindMessageTypeByName('bus.BusRequest'))
-BusResponseMessage = GetMessageClass(DescriptorPool.Default().FindMessageTypeByName('bus.BusResponse'))
+BusRequestMessage = GetMessageClass(DescriptorPool.FindMessageTypeByName('bus.BusRequest'))
+BusResponseMessage = GetMessageClass(DescriptorPool.FindMessageTypeByName('bus.BusResponse'))
 # ─────────────────────────────────────────────────────────────────────
 
 SERVICE_REGISTRY = {
