@@ -28,13 +28,13 @@ async def websocket_endpoint(websocket, client_id: str):
         await websocket.send_text(f"Message from {client_id}: {data}")
         
 @app.post("/api/dispatch")
-async def dispatch_event(data: DynamicEventPayload):
+def dispatch_event(data: DynamicEventPayload):
     # 1. Look up address by service alias
-    target_address = SERVICE_REGISTRY.get(data.service_alias)
+    target_address = SERVICE_REGISTRY.get(data.target_service)
     if not target_address:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Service '{data.service_alias}' is not registered on the bus."
+            detail=f"Service '{data.target_service}' is not registered on the bus."
         )
 
     try:
@@ -44,7 +44,7 @@ async def dispatch_event(data: DynamicEventPayload):
         # 3. Dynamically invoke the RPC method passing the dict payload directly
         response = client.request(
             service_name=data.grpc_service,
-            method_name=data.method_name,
+            method_name=data.event_name,
             data=data.payload
         )
 
