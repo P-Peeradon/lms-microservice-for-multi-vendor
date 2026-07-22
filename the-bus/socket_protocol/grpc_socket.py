@@ -48,7 +48,6 @@ class BusRouterServicer:
             
             # Extract fields sent from your Node.js app
             target_service = request.target_service  # e.g., "identity"
-            grpc_service = request.grpc_service      # e.g., "identity.Identity"
             event_name = request.event_name          # e.g., "SayHello"
             
             # Safely parse the incoming stringified JSON payload into a Python dict
@@ -65,12 +64,15 @@ class BusRouterServicer:
             loop = asyncio.get_event_loop()
             client = Client.get_by_endpoint(target_address)
             
+            # Construct service name from target_service (e.g., "identity" -> "identity.Identity")
+            service_name = f"{target_service}.{target_service.capitalize()}"
+            
             raw_response = await loop.run_in_executor(
                 None, 
                 lambda: client.request(
-                    service_name=grpc_service,
-                    method_name=event_name,
-                    data=payload_dict
+                    service_name,
+                    event_name,
+                    payload_dict
                 )
             )
 
@@ -84,8 +86,11 @@ class BusRouterServicer:
             return response.SerializeToString()
 
         except Exception as e:
+            import traceback
+            error_msg = f"{type(e).__name__}: {str(e)}\n{traceback.format_exc()}"
+            print(error_msg, file=__import__('sys').stderr)
             context.set_code(grpc.StatusCode.INTERNAL)
-            context.set_details(f"Routing gateway crash: {str(e)}")
+            context.set_details(error_msg[:200])
             return b""
 
 class DynamicGrpcGateway(grpc.GenericRpcHandler):
