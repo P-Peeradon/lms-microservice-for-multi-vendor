@@ -1,64 +1,46 @@
 import asyncio
-from fastapi import FastAPI, HTTPException, status
-from pydantic import BaseModel
-from grpc_requests import Client
 import grpc
+from grpc import aio
+from grpc_reflection.v1alpha import reflection
+import uvicorn
+from socket.grpc_socket import DynamicGrpcGateway
+from socket.websocket_socket import app  # Import the FastAPI app from your websocket_socket.py
 
-from pydantic import BaseModel
+# --- 2. THE DUAL-ENGINE COROUTINE SETUP ---
+async def serve():
+    # ---- Setup Engine A: Native gRPC Server ----
+    server = aio.server()
+    
+    # DynamicGrpcGateway() is your custom class from your previous code
+    server.add_generic_rpc_handlers((DynamicGrpcGateway(),)) 
+    
+    SERVICE_NAMES = ('bus.BusRouter', reflection.SERVICE_NAME)
+    reflection.enable_server_reflection(SERVICE_NAMES, server)
+    
+    server.add_insecure_port('0.0.0.0:8000')
+    print("🚀 True HTTP/2 gRPC Gateway listening on port 8000")
+    await server.start()
 
-SERVICE_REGISTRY = {
-    "identity": "localhost:5188",
-    "order": "localhost:50053"
-}
+    # ---- Setup Engine B: Asynchronous Uvicorn (FastAPI) ----
+    config = uvicorn.Config(app, host="0.0.0.0", port=8001, log_level="info")
+    uvicorn_server = uvicorn.Server(config)
+    print("🔌 WebSockets HTTP Server listening on port 8001")
 
-# Request schema received from NitroTS
-class DynamicEventPayload(BaseModel):
-    target_service: str    # e.g., "identity"
-    grpc_service: str     # Full proto service name, e.g., "identity.Identity"
-    event_name: str      # RPC method name, e.g., "SayHello"
-    payload: dict         # Method parameters as dictionary, e.g., {"name": "Alice"}
-
-app = FastAPI()
-
-@app.websocket("/ws/{client_id}")
-async def websocket_endpoint(websocket, client_id: str):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message from {client_id}: {data}")
-        
-@app.post("/api/dispatch")
-def dispatch_event(data: DynamicEventPayload):
-    # 1. Look up address by service alias
-    target_address = SERVICE_REGISTRY.get(data.target_service)
-    if not target_address:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Service '{data.target_service}' is not registered on the bus."
-        )
-
+    # ---- Run Both Concurrently ----
+    # Instead of wait_for_termination(), we wrap both long-running tasks 
+    # so they execute on the exact same loop simultaneously.
     try:
-        # 2. Connect to C# service and fetch protobuf schema via Reflection
-        client = Client.get_by_endpoint(target_address)
-
-        # 3. Dynamically invoke the RPC method passing the dict payload directly
-        response = client.request(
-            service_name=data.grpc_service,
-            method_name=data.event_name,
-            data=data.payload
+        await asyncio.gather(
+            server.wait_for_termination(),
+            uvicorn_server.serve()
         )
+    except asyncio.CancelledError:
+        print("\n🛑 Shutdown signal received. Stopping servers...")
+        # Gracefully stop the gRPC engine during cancellation
+        await server.stop(grace=5)
 
-        return {
-            "success": True,
-            "data": response
-        }
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Dynamic gRPC call failed: {str(e)}"
-        )
-        
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    try:
+        asyncio.run(serve())
+    except KeyboardInterrupt:
+        print("\n👋 Exited cleanly.")
