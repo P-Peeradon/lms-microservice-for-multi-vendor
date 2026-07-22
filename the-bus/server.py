@@ -7,7 +7,7 @@ import grpc
 from pydantic import BaseModel
 
 SERVICE_REGISTRY = {
-    "identity": "localhost:50052",
+    "identity": "localhost:5188",
     "order": "localhost:50053"
 }
 
