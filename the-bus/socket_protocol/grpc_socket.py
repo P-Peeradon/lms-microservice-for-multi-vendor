@@ -5,16 +5,30 @@ from grpc import aio
 from grpc_reflection.v1alpha import reflection
 from grpc_requests import Client
 
-# ─── NATIVE 4-LINE DYNAMIC LOADER (NO DISK WRITE) ───────────────────
-from google.protobuf.descriptor_pool import DescriptorPool
-from google.protobuf.message_factory import GetMessageClass
-from grpc_tools import protoc
-# 1. Ask the internal compiler to load the file into the global memory pool
-protoc.main(('', '--proto_path=.', '--descriptor_set_out=', '../protos/bus.proto'))
-# 2. Extract the message class builders out of the memory pool instantly
-BusRequestMessage = GetMessageClass(DescriptorPool.FindMessageTypeByName('bus.BusRequest'))
-BusResponseMessage = GetMessageClass(DescriptorPool.FindMessageTypeByName('bus.BusResponse'))
-# ─────────────────────────────────────────────────────────────────────
+from google.protobuf.descriptor_pb2 import FileDescriptorProto, DescriptorProto, FieldDescriptorProto
+from google.protobuf import descriptor_pool, message_factory
+
+file_desc = FileDescriptorProto(name="bus.proto", package="bus")
+
+# Define BusRequest message
+bus_request = DescriptorProto(name="BusRequest")
+bus_request.field.append(FieldDescriptorProto(name="target_service", number=1, type=9))
+bus_request.field.append(FieldDescriptorProto(name="event_name", number=2, type=9))
+bus_request.field.append(FieldDescriptorProto(name="payload", number=3, type=9))
+file_desc.message_type.append(bus_request)
+
+# Define BusResponse message
+bus_response = DescriptorProto(name="BusResponse")
+bus_response.field.append(FieldDescriptorProto(name="success", number=1, type=8))
+bus_response.field.append(FieldDescriptorProto(name="message", number=2, type=9))
+bus_response.field.append(FieldDescriptorProto(name="metadata", number=3, type=9))
+file_desc.message_type.append(bus_response)
+
+pool = descriptor_pool.Default()
+pool.Add(file_desc)
+
+BusRequestMessage = message_factory.GetMessageClass(pool.FindMessageTypeByName('bus.BusRequest'))
+BusResponseMessage = message_factory.GetMessageClass(pool.FindMessageTypeByName('bus.BusResponse'))
 
 SERVICE_REGISTRY = {
     "identity": "localhost:5188",
