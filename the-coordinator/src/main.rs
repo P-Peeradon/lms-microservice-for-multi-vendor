@@ -1,5 +1,5 @@
 pub mod pb {
-    tonic::include_proto!("the_coordinator");
+    tonic::include_proto!("coordinator");
 }
 
 use pb::coordinator_service_server::{CoordinatorService, CoordinatorServiceServer};
@@ -54,14 +54,14 @@ struct GetStaffTimetablePayload {
 }
 
 #[derive(Clone, Default)]
-pub struct Coordinator;
+pub struct CoordinatorSvc;
 
 fn parse_payload<T: for<'de> Deserialize<'de>>(payload: &str) -> Result<T, Status> {
     serde_json::from_str(payload).map_err(|e| Status::invalid_argument(e.to_string()))
 }
 
 #[tonic::async_trait]
-impl CoordinatorService for Coordinator {
+impl CoordinatorService for CoordinatorSvc {
     async fn register_student(
         &self,
         request: Request<RegisterStudentRequest>,
