@@ -11,5 +11,6 @@ tokio = "1.53.1"
 tonic = "0.14.6"
 
 [build-dependencies]
+protobuf-src = "2"
 tonic-build = "0.14.6"
 tonic-prost-build = "0.14.6"
