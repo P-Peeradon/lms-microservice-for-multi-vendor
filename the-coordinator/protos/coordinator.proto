@@ -14,92 +14,6 @@ service CoordinatorService {
   rpc GetStaffTimetable (GetStaffTimetableRequest) returns (GetStaffTimetableResponse);
 }
 
-// RegisterStudent RPC
-message RegisterStudentRequest {
-  string student_name = 1;
-  string student_email = 2;
-  string program = 3;
-  string enrollment_year = 4;
-  string contact_number = 5;
-}
-
-message RegisterStudentResponse {
-  string student_id = 1;
-  string status = 2;        // e.g. "SUCCESS", "ERROR_DUPLICATE", "ERROR_INVALID"
-  string error_message = 3;
-}
-
-// ReportConflict RPC
-message ReportConflictRequest {
-  string timetable_entry_id_1 = 1;
-  string timetable_entry_id_2 = 2;
-  string conflict_description = 3;
-  string reported_by = 4;
-}
-
-message ReportConflictResponse {
-  string conflict_id = 1;
-  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND", "ERROR_INVALID"
-  string error_message = 3;
-}
-
-// ChangeTimetableEntry RPC
-message ChangeTimetableEntryRequest {
-  string timetable_entry_id = 1;
-  string new_start_time = 2;
-  string new_end_time = 3;
-  string new_room_id = 4;
-  string reason_for_change = 5;
-}
-
-message ChangeTimetableEntryResponse {
-  string updated_entry_id = 1;
-  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND", "ERROR_CONFLICT"
-  string error_message = 3;
-}
-
-// AssignInstructor RPC
-message AssignInstructorRequest {
-  string timetable_entry_id = 1;
-  string instructor_id = 2;
-  string subject_code = 3;
-}
-
-message AssignInstructorResponse {
-  string assignment_id = 1;
-  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND", "ERROR_UNAVAILABLE"
-  string error_message = 3;
-}
-
-// RequestRoom RPC
-message RequestRoomRequest {
-  string timetable_entry_id = 1;
-  string room_type = 2;     // e.g. "CLASSROOM", "LAB", "AUDITORIUM"
-  int32 required_capacity = 3;
-  string start_time = 4;
-  string end_time = 5;
-  string date = 6;
-}
-
-message RequestRoomResponse {
-  string allocated_room_id = 1;
-  string status = 2;        // e.g. "SUCCESS", "ERROR_NO_ROOMS_AVAILABLE", "ERROR_INVALID_REQUEST"
-  string error_message = 3;
-}
-
-// GetStaffTimetable RPC
-message GetStaffTimetableRequest {
-  string staff_id = 1;
-  string start_date = 2;
-  string end_date = 3;
-}
-
-message GetStaffTimetableResponse {
-  repeated TimetableEntry entries = 1;
-  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND"
-  string error_message = 3;
-}
-
 message TimetableEntry {
   string entry_id = 1;
   string course_code = 2;
@@ -110,4 +24,127 @@ message TimetableEntry {
   string instructor_id = 7;
 }
 
+// RegisterStudent RPC
+message RegisterStudentRequest {
+    string shadow_id = 1;
+    string university = 2;
+    // {
+    //   "shadow_id": "...",
+    //   "subject_instance_id": "..."
+    // }
+    string register_student_json = 3; 
+}
 
+message RegisterStudentResponse {
+  string student_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_DUPLICATE", "ERROR_INVALID"
+  string error_message = 3;
+}
+
+// ReportConflict RPC
+message ReportConflictRequest {
+  string shadow_id = 1; // The shadow ID of the user reporting the conflict
+  string conflict_type = 2; // e.g., "TIME_OVERLAP", "ROOM_CONFLICT"
+  string university = 3; // The university where the conflict occurred
+  // Raw JSON for timetable conflict details:
+  // {
+  //   "instructor_shadow_id": "...",
+  //   "timetable_slot_id_1": "...",
+  //   "venue_id_1": "...",
+  //   "timetable_slot_id_2": "...",
+  //   "venue_id_2": "...",
+  // }
+  // Raw JSON for room conflict details:
+  // {
+  //   "venue_id": "...",
+  //   "timetable_slot_id_1": "...",
+  //   "instructor_shadow_id_1": "...",
+  //   "timetable_slot_id_2": "...",
+  //   "instructor_shadow_id_2": "...",
+  // }
+  string conflict_details_json = 4;
+}
+
+message ReportConflictResponse {
+  string conflict_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND", "ERROR_INVALID"
+  string error_message = 3;
+}
+
+// ChangeTimetableEntry RPC
+message ChangeTimetableEntryRequest {
+    string shadow_id = 1;
+  string reason_for_change = 2;
+  // ChangeTimetableEntryRequest.payload_json structure:
+  // {
+  //   "timetable_slot_id": "...",
+  //   "new_start_time": "...",
+  //   "new_end_time": "...",
+  //   "new_venue": "..."
+  // }
+    string change_entry_json = 3;
+}
+
+message ChangeTimetableEntryResponse {
+  string updated_entry_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND", "ERROR_CONFLICT"
+  string error_message = 3;
+}
+
+// AssignInstructor RPC
+message AssignInstructorRequest {
+  string shadow_id = 1;
+  string university = 2;
+  string faculty = 3;
+  // {
+  //   "timetable_slot_id": "...",
+  //   "instructor_shadow_id": "..."
+  // }
+  string assign_instructor_json = 4;
+}
+
+message AssignInstructorResponse {
+  string assignment_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND", "ERROR_UNAVAILABLE"
+  string error_message = 3;
+}
+
+// RequestRoom RPC
+message RequestRoomRequest {
+  string shadow_id = 1;
+  string university = 2;
+  string faculty = 3;
+  string subject_code = 4;
+  // {
+  //   "timetable_slot_id": "...",
+  //   "requested_venue": "...",
+  //   "required_capacity": "...",
+  //   "start_time": "...",
+  //   "end_time": "...",
+  //   "date": "...",
+  // }
+  string room_request_json = 5;
+}
+
+message RequestRoomResponse {
+  string allocated_room_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NO_ROOMS_AVAILABLE", "ERROR_INVALID_REQUEST"
+  string error_message = 3;
+}
+
+// GetStaffTimetable RPC
+message GetStaffTimetableRequest {
+  string shadow_id = 1; // The one who requested.
+  string university = 2;
+  string reason_to_fetch = 3; // To make sure the reason is related to admin task related to course registration.
+  // {
+  //   "instructor_shadow_id": "..."
+  // }
+  string staff_timetable_json = 4;
+}
+
+message GetStaffTimetableResponse {
+  repeated TimetableEntry entries = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND"
+  string error_message = 3;
+}
