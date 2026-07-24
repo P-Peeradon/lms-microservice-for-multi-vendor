@@ -3,6 +3,7 @@ using the_identity;
 using Microsoft.Extensions.Logging;
 using the_identity.Helpers;
 using System.Security.Cryptography;
+using the_identity.TaskRecipe;
 
 namespace the_identity.Services;
 
@@ -10,12 +11,12 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
 {
 
     private readonly ILogger<IdentityService> _logger;
-    private readonly IIdentityRepository _repo;
+    private readonly IIdentityTaskRecipe _task;
 
-    public IdentityService(ILogger<IdentityService> logger, IIdentityRepository repo)
+    public IdentityService(ILogger<IdentityService> logger, IIdentityTaskRecipe task)
     {
         _logger = logger;
-        _repo = repo;
+        _task = task;
     }
 
     public override async Task<SubmitPIIResponse> SubmitPII(
@@ -27,7 +28,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
                 PiiValidator.Validate(root);
 
                 string identityId = Guid.NewGuid().ToString();
-                await _repo.SaveStagingAsync(identityId, request.PiiJson);
+                await _task.SaveStagingAsync(identityId, request.PiiJson);
 
                 return new SubmitPIIResponse
                 {
@@ -50,7 +51,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
         public override async Task<ApprovePIIResponse> ApprovePII(
             ApprovePIIRequest request, ServerCallContext context)
         {
-            if (!await _repo.ExistsAsync(request.IdentityId))
+            if (!await _task.ExistsAsync(request.IdentityId))
             {
                 return new ApprovePIIResponse
                 {
@@ -59,7 +60,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
                 };
             }
 
-            await _repo.MarkApprovedAsync(request.IdentityId, request.ApprovalJson);
+            await _task.MarkApprovedAsync(request.IdentityId, request.ApprovalJson);
 
             return new ApprovePIIResponse
             {
@@ -83,7 +84,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
 
                 string encrypted = EncryptionHelper.EncryptAes192(request.PiiJson, key, iv);
 
-                await _repo.StoreEncryptedAsync(request.IdentityId, encrypted);
+                await _task.StoreEncryptedAsync(request.IdentityId, encrypted);
 
                 return new EncryptPIIResponse
                 {
@@ -106,7 +107,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
          public override async Task<GenerateShadowIDResponse> GenerateShadowID(
             GenerateShadowIDRequest request, ServerCallContext context)
         {
-            if (!await _repo.ExistsAsync(request.IdentityId))
+            if (!await _task.ExistsAsync(request.IdentityId))
             {
                 return new GenerateShadowIDResponse
                 {
@@ -116,7 +117,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
             }
 
             string shadowId = ShadowIdHelper.Generate();
-            await _repo.StoreShadowIdAsync(request.IdentityId, shadowId);
+            await _task.StoreShadowIdAsync(request.IdentityId, shadowId);
 
             return new GenerateShadowIDResponse
             {
@@ -136,7 +137,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
                 string? hashedFirstname = SearchKeyHelper.Get(root, "hashed_firstname");
                 string? hashedDob = SearchKeyHelper.Get(root, "hashed_dob");
 
-                var results = await _repo.SearchAsync(hashedFirstname, hashedDob);
+                var results = await _task.SearchAsync(hashedFirstname, hashedDob);
 
                 var response = new SearchIdentityResponse
                 {
@@ -162,7 +163,7 @@ public class IdentityService : global::the_identity.IdentityService.IdentityServ
         {
             AuditHelper.LogDecrypt(request.IdentityId, request.AuditContextJson);
 
-            string? encrypted = await _repo.GetEncryptedAsync(request.IdentityId);
+            string? encrypted = await _task.GetEncryptedAsync(request.IdentityId);
 
             if (encrypted is null)
             {
