@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package coordinator;
+package Coordinator;
 
-option rust_package = "the_coordinator";
+option csharp_namespace = "the_coordinator";
 
 // Coordinator Service Definition
 service CoordinatorService {
