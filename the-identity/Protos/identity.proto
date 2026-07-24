@@ -2,20 +2,159 @@ syntax = "proto3";
 
 option csharp_namespace = "the_identity";
 
-package identity;
+package Identity;
 
-// The greeting service definition.
-service Identity {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
+service IdentityService {
+  // 1. Submit raw PII JSON for an identity.
+  rpc SubmitPII(SubmitPIIRequest) returns (SubmitPIIResponse);
+
+  // 2. Approve previously submitted PII.
+  rpc ApprovePII(ApprovePIIRequest) returns (ApprovePIIResponse);
+
+  // 3. Encrypt approved PII with AES-192 and store as base64 blob.
+  rpc EncryptPII(EncryptPIIRequest) returns (EncryptPIIResponse);
+
+  // 4. Generate NRIC-like ShadowID with checksum.
+  rpc GenerateShadowID(GenerateShadowIDRequest) returns (GenerateShadowIDResponse);
+
+  // 5. Search identities using hashed keys.
+  rpc SearchIdentity(SearchIdentityRequest) returns (SearchIdentityResponse);
+
+  // 6. Decrypt PII for admin-only access (audit-logged).
+  rpc DecryptPII(DecryptPIIRequest) returns (DecryptPIIResponse);
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+// ---------- 1. SubmitPII ----------
+
+message SubmitPIIRequest {
+  // Client-side correlation ID (optional but recommended).
+  string client_id = 1;
+
+  // Raw JSON string containing PII:
+  // {
+  //   "firstname": "...",
+  //   "lastname": "...",
+  //   "dob": "...",
+  //   "address": "...",
+  //   "email": "...",
+  //   "uni_email": "...",
+  //   "student_id": "...", // or "staff_id"
+  //   "phone": "...",
+  //   ... optional/extension fields ...
+  // }
+  string pii_json = 2;
 }
 
-// The response message containing the greetings.
-message HelloReply {
-  string message = 1;
+message SubmitPIIResponse {
+  string client_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_INVALID_JSON", "ERROR_MISSING_FIELD"
+  string error_message = 3; // optional human-readable error
+  string identity_id = 4;   // internal identity/staging ID assigned on success
+}
+
+// ---------- 2. ApprovePII ----------
+
+message ApprovePIIRequest {
+  string identity_id = 1;
+
+  // Raw JSON for approval metadata:
+  // {
+  //   "approved_by": "...",
+  //   "approved_at": "...", // ISO datetime
+  //   ... optional fields ...
+  // }
+  string approval_json = 2;
+}
+
+message ApprovePIIResponse {
+  string identity_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND"
+  string error_message = 3;
+}
+
+// ---------- 3. EncryptPII ----------
+
+message EncryptPIIRequest {
+  string identity_id = 1;
+
+  // Raw JSON containing the PII to encrypt (same schema as SubmitPII).
+  string pii_json = 2;
+}
+
+message EncryptPIIResponse {
+  string identity_id = 1;
+  string status = 2;          // e.g. "SUCCESS", "ERROR_NOT_APPROVED"
+  string error_message = 3;
+  string encrypted_pii = 4;   // base64-encoded AES-192 ciphertext
+}
+
+// ---------- 4. GenerateShadowID ----------
+
+message GenerateShadowIDRequest {
+  string identity_id = 1;
+}
+
+message GenerateShadowIDResponse {
+  string identity_id = 1;
+  string status = 2;        // e.g. "SUCCESS", "ERROR_NOT_FOUND"
+  string error_message = 3;
+  string shadow_id = 4;     // NRIC-like ID with checksum
+}
+
+// ---------- 5. SearchIdentity ----------
+
+message SearchIdentityRequest {
+  // Raw JSON containing hashed search keys:
+  // {
+  //   "hashed_firstname": "...",
+  //   "hashed_dob": "...",
+  //   "hashed_student_id": "...", // or "hashed_staff_id"
+  //   ... optional hashed fields ...
+  // }
+  string search_keys_json = 1;
+}
+
+message SearchIdentityResponse {
+  string status = 1;        // e.g. "SUCCESS"
+  string error_message = 2;
+
+  repeated SearchIdentityResult results = 3;
+}
+
+message SearchIdentityResult {
+  string identity_id = 1;
+  string shadow_id = 2;
+
+  // Non-PII metadata (plaintext), e.g. university, faculty, program, etc.
+  // {
+  //   "university": "...",
+  //   "faculty": "...",
+  //   "program": "...",
+  //   ... other non-PII fields ...
+  // }
+  string metadata_json = 3;
+}
+
+// ---------- 6. DecryptPII ----------
+
+message DecryptPIIRequest {
+  string identity_id = 1;
+
+  // Raw JSON for audit context:
+  // {
+  //   "requested_by": "...",
+  //   "reason": "...",
+  //   "requested_at": "...",
+  //   ... optional fields ...
+  // }
+  string audit_context_json = 2;
+}
+
+message DecryptPIIResponse {
+  string identity_id = 1;
+  string status = 2;          // e.g. "SUCCESS", "ERROR_UNAUTHORIZED"
+  string error_message = 3;
+
+  // Raw JSON containing decrypted PII (same schema as SubmitPII).
+  string pii_json = 4;
 }
