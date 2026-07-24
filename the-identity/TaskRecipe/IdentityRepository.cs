@@ -2,7 +2,9 @@ using Grpc.Core;
 using the_identity;
 using the_identity.Helpers;
 
-public interface IIdentityRepository
+namespace the_identity.TaskRecipe
+{
+    public interface IIdentityTaskRecipe
     {
         Task SaveStagingAsync(string identityId, string piiJson);
         Task<bool> ExistsAsync(string identityId);
@@ -12,3 +14,5 @@ public interface IIdentityRepository
         Task<string?> GetEncryptedAsync(string identityId);
         Task<IReadOnlyList<SearchIdentityResult>> SearchAsync(string? hashedFirstname, string? hashedDob);
     }
+}
+
