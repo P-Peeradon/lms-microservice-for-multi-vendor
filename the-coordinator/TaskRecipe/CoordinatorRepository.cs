@@ -4,9 +4,9 @@ using the_coordinator;
 using the_coordinator.Helpers;
 using the_coordinator.Domain;
 
-namespace the_coordinator.Repository
+namespace the_coordinator.TaskRecipe
 {
-	public interface ICoordinatorRepository
+	public interface ICoordinatorTaskDispatcher<T> where T : class
 	{
 		// User lookups
 		Task<User?> GetUserByShadowIdAsync(string shadowId);
